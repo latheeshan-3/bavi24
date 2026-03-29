@@ -1,26 +1,40 @@
-@import "tailwindcss";
+/* ─────────────────────────────────────────────────────────
+   GLOBALS — Bavi's Birthday, 24
+   Palette: midnight-navy · amber-gold · ivory · sage · lavender
+───────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy:    #0c1445;
+  --navy-mid:#12205e;
+  --amber:   #e8a030;
+  --amber-lt:#f5c060;
+  --ivory:   #f5f0e8;
+  --sage:    #7a9c7e;
+  --sage-lt: #a8c5ac;
+  --lavender:#9b7fe8;
+  --lav-lt:  #c0a8f5;
+  --cream:   #fdf8f0;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif:   'DM Serif Display', Georgia, serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html, body { height: 100%; overflow: hidden; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background: var(--navy);
+  color: var(--ivory);
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 2px; }
+
+/* Global button reset */
+button { cursor: pointer; border: none; background: none; font-family: inherit; }

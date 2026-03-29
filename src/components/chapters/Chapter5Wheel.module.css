@@ -1,0 +1,183 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 2;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 30%, #1a1040 0%, #0c1445 60%, #060820 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+  padding: 0 1rem;
+  max-height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+  padding-top: 5rem;
+  padding-bottom: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--ivory);
+  text-shadow: 0 0 30px rgba(155,127,232,0.4);
+}
+.sub {
+  font-size: 0.85rem;
+  color: rgba(245,240,232,0.5);
+}
+
+/* ── Wheel ── */
+.wheelWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel {
+  width: min(300px, 80vw);
+  height: min(300px, 80vw);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(232,160,48,0.3), 0 20px 60px rgba(0,0,0,0.6), 0 0 50px rgba(155,127,232,0.2);
+  filter: drop-shadow(0 0 20px rgba(155,127,232,0.3));
+}
+
+.pointer {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.6rem;
+  color: var(--amber);
+  text-shadow: 0 0 12px var(--amber);
+  z-index: 10;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+}
+
+/* ── Spin button ── */
+.spinBtn {
+  padding: 0.85rem 2.5rem;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #e8a030, #c47a10);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 20px rgba(232,160,48,0.45);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.spinBtn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(232,160,48,0.55); }
+.spinBtn:active:not(:disabled) { transform: scale(0.96); }
+.spinBtn:disabled { opacity: 0.6; cursor: default; }
+.spinBtn.spinning { animation: spinPulse 0.6s ease-in-out infinite alternate; }
+@keyframes spinPulse {
+  from { box-shadow: 0 4px 20px rgba(232,160,48,0.3); }
+  to   { box-shadow: 0 4px 30px rgba(232,160,48,0.7); }
+}
+
+/* ── Result card ── */
+.resultCard {
+  max-width: 340px;
+  width: 100%;
+  background: rgba(12,20,69,0.85);
+  border: 1.5px solid;
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  backdrop-filter: blur(12px);
+  animation: cardDrop 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  text-align: center;
+}
+@keyframes cardDrop {
+  from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.resultEmoji { font-size: 2.4rem; margin-bottom: 0.3rem; }
+.resultLabel {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.resultDesc {
+  font-size: 0.82rem;
+  color: rgba(245,240,232,0.7);
+  line-height: 1.6;
+}
+
+/* ── Next button ── */
+.nextBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #9b7fe8, #7a60c0);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 20px rgba(155,127,232,0.4);
+  animation: fadeSlideUp 0.5s ease both;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nextBtn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(155,127,232,0.55); }
+.nextBtn span { transition: transform 0.2s; }
+.nextBtn:hover span { transform: translateX(4px); }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Video Transition ── */
+.videoWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060820;
+}
+.videoPlayer {
+  width: 85%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(232, 160, 48, 0.5);
+  z-index: 60;
+  border: 2px solid rgba(232, 160, 48, 0.6);
+}
+
+/* ── Celebration Rain ── */
+.rainParticle {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 16px;
+  border-radius: 10px;
+  animation: fall linear forwards;
+  z-index: 55;
+  box-shadow: 0 0 8px currentColor;
+}
+
+@keyframes fall {
+  from { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  to   { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}

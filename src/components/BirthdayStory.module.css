@@ -1,0 +1,126 @@
+.root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Chapter badge (top-left) ── */
+.chapterBadge {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(12, 20, 69, 0.7);
+  border: 1px solid rgba(232, 160, 48, 0.3);
+  backdrop-filter: blur(12px);
+  border-radius: 100px;
+  padding: 0.45rem 1rem 0.45rem 0.55rem;
+  font-family: var(--font-sans);
+}
+
+.restartBtn {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: rgba(232, 160, 48, 0.15);
+  border: 1px solid rgba(232, 160, 48, 0.4);
+  color: var(--amber);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.3s;
+  flex-shrink: 0;
+}
+.restartBtn:hover {
+  background: rgba(232, 160, 48, 0.3);
+  transform: rotate(-180deg);
+}
+
+.chapterLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  white-space: nowrap;
+}
+
+.chapterName {
+  font-size: 0.72rem;
+  color: rgba(245, 240, 232, 0.55);
+  white-space: nowrap;
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .chapterName { display: inline; }
+}
+
+/* ── Progress dots (top-right) ── */
+.progressDots {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245, 240, 232, 0.2);
+  border: 1px solid rgba(232, 160, 48, 0.3);
+  transition: all 0.4s ease;
+}
+.dotActive {
+  background: var(--amber);
+  width: 18px;
+  border-radius: 3px;
+  border-color: var(--amber);
+  box-shadow: 0 0 8px var(--amber);
+}
+.dotDone {
+  background: rgba(232, 160, 48, 0.5);
+  border-color: rgba(232, 160, 48, 0.5);
+}
+
+/* ── Stage + transitions ── */
+.stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  will-change: opacity, transform;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fadeOut {
+  opacity: 0;
+  transform: translateX(-4vw) scale(0.97);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  pointer-events: none;
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateX(4vw) scale(0.97);
+  transition: none;
+}

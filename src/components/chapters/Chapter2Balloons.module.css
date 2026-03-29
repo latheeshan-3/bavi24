@@ -1,0 +1,181 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1a2560 0%, #2a4080 40%, #4a6090 70%, #c8a870 100%);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.skyGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 40% at 50% 30%, rgba(155,127,232,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Balloons ── */
+.balloon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  cursor: pointer;
+  transition: filter 0.15s;
+  z-index: 10;
+}
+.balloon:hover .balloonBody {
+  filter: brightness(1.2);
+  transform: scale(1.06);
+}
+
+.balloonBody {
+  width: 100%;
+  height: 80%;
+  border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+  position: relative;
+  transition: transform 0.15s, filter 0.15s;
+}
+.balloonShine {
+  position: absolute;
+  top: 12%;
+  left: 20%;
+  width: 28%;
+  height: 22%;
+  background: rgba(255,255,255,0.35);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+.balloonKnot {
+  width: 10px; height: 10px;
+  border-radius: 50% 50% 0 0;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.balloonString {
+  width: 1px;
+  height: 40px;
+  background: rgba(245,240,232,0.4);
+  margin: 0 auto;
+}
+
+/* ── Floating message cards ── */
+.floatingCard {
+  position: absolute;
+  max-width: 220px;
+  background: rgba(12,20,69,0.88);
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--ivory);
+  line-height: 1.5;
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  animation: cardAppear 0.4s cubic-bezier(0.22,1,0.36,1) both, cardFade 4s ease 2.5s forwards;
+  pointer-events: none;
+}
+@keyframes cardAppear {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes cardFade {
+  from { opacity: 1; }
+  to   { opacity: 0; transform: translateY(-20px); }
+}
+.floatingCardDot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* ── Counter ── */
+.counter {
+  position: absolute;
+  top: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(12,20,69,0.7);
+  border: 1px solid rgba(232,160,48,0.3);
+  border-radius: 100px;
+  padding: 0.4rem 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--ivory);
+  backdrop-filter: blur(8px);
+  z-index: 30;
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+.counterNum {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--amber);
+}
+.counterOf { color: rgba(245,240,232,0.4); }
+.counterLabel { color: rgba(245,240,232,0.6); }
+
+/* ── Title ── */
+.heading {
+  position: absolute;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 5;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--ivory);
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+.sub {
+  font-size: 0.82rem;
+  color: rgba(245,240,232,0.6);
+  margin-top: 0.3rem;
+}
+
+/* ── Next button ── */
+.nextBtn {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #e8a030, #c47a10);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 20px rgba(232,160,48,0.4);
+  z-index: 30;
+  animation: fadeSlideUp 0.5s ease both, blinkBtn 2s infinite 1s;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nextBtn:hover { transform: translateX(-50%) translateY(-3px); box-shadow: 0 8px 28px rgba(232,160,48,0.55); animation: none; }
+.nextBtn span { transition: transform 0.2s; }
+.nextBtn:hover span { transform: translateX(4px); }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes blinkBtn {
+  0%   { opacity: 1; box-shadow: 0 4px 20px rgba(232,160,48,0.4); transform: translateX(-50%) scale(1); }
+  50%  { opacity: 0.7; box-shadow: 0 4px 35px rgba(232,160,48,0.8); transform: translateX(-50%) scale(1.04); }
+  100% { opacity: 1; box-shadow: 0 4px 20px rgba(232,160,48,0.4); transform: translateX(-50%) scale(1); }
+}
