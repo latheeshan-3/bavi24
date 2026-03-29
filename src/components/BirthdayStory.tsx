@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Chapter1Envelope from "./chapters/Chapter1Envelope";
 import Chapter2Balloons from "./chapters/Chapter2Balloons";
 import Chapter3Memories from "./chapters/Chapter3Memories";
@@ -16,6 +16,59 @@ export default function BirthdayStory() {
   const [chapter, setChapter] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [transitionDir, setTransitionDir] = useState<"in" | "out">("in");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize background audio
+  useEffect(() => {
+    if (typeof Audio !== "undefined" && !audioRef.current) {
+      const audio = new Audio("/audio.mp3");
+      audio.loop = true;
+      audio.volume = 0.5; // base volume
+      audioRef.current = audio;
+    }
+  }, []);
+
+  // Unlock audio organically on first interaction
+  useEffect(() => {
+    const unlockAudio = () => {
+      if (audioRef.current && audioRef.current.paused && chapter < 6) {
+        audioRef.current.play().catch(() => {});
+      }
+    };
+    window.addEventListener("click", unlockAudio);
+    window.addEventListener("keydown", unlockAudio);
+    return () => {
+      window.removeEventListener("click", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+    };
+  }, [chapter]);
+
+  // Handle Chapter 6 fade out logic
+  useEffect(() => {
+    if (chapter === 6) {
+      const fadeTimer = setTimeout(() => {
+        if (!audioRef.current) return;
+        let vol = audioRef.current.volume;
+        const fadeInterval = setInterval(() => {
+          if (vol > 0.05) {
+            vol -= 0.05;
+            if (audioRef.current) audioRef.current.volume = vol;
+          } else {
+            clearInterval(fadeInterval);
+            if (audioRef.current) {
+              audioRef.current.volume = 0;
+              audioRef.current.pause();
+            }
+          }
+        }, 150); // fades out over roughly 1.5 seconds
+      }, 5000); // starts fade 5 seconds into chapter 6
+      return () => clearTimeout(fadeTimer);
+    } else if (chapter === 1 && audioRef.current) {
+      // Restore volume if the story is restarted
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(() => {});
+    }
+  }, [chapter]);
 
   const goTo = useCallback(
     (target: number) => {
